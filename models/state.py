@@ -21,8 +21,9 @@ class State(BaseModel, Base):
         the list of City instances with state_id
         """
         list_cities = []
-        dict_cities = models.storage.all(City)
-        for key, city in dict_cities.items():
-            if city.state_id == self.id:
-                list_cities.append(city)
+        dict_cities = models.storage.all()
+        for key, obj in dict_cities.items():
+            if obj.__class__.__name == 'City':
+                if obj.state_id == self.id:
+                    list_cities.append(obj)
         return list_cities
